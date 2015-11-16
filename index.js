@@ -12,7 +12,7 @@ server.route({
         Github.getToken(request.params.code, function(err, userID) {
             if(err) console.error(err);
             console.log('userID:', userID);
-            reply('http://SubmitAnIssue.github.io/finish?token=' + userIDs);
+            reply('http://SubmitAnIssue.github.io/finish?token=' + userID);
         });
     }
 });
