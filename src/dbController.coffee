@@ -1,7 +1,7 @@
 mongo = require 'mongoskin'
 uuid = require 'uuid'
 DB = process.env.DBPORT || 'users'
-db = mongo.db('mongodb://localhost:27017/#{DB}', {native_parser: true})
+db = mongo.db("mongodb://localhost:27017/#{DB}", {native_parser: true})
 
 db.bind('user').bind({
     getByID: (userID, callback) ->
@@ -30,8 +30,9 @@ class dbController
     # @return [String] userID UUID for future queries
     # @author g07cha
     @addUser: (token) ->
-        userID = uuid.v1();
-        console.log(db.user.insertOne({token: token, userID: userID}))
-        userID
+        if token
+            userID = uuid.v1();
+            db.user.insertOne({token: token, userID: userID})
+            userID
 
 module.exports = dbController
