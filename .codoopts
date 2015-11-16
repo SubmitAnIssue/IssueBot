@@ -1,0 +1,6 @@
+--name          "IssueBot"
+--readme        README.md
+--title         "IssueBot Documentation"
+./src
+-
+LICENSE
