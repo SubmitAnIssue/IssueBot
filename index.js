@@ -2,7 +2,7 @@ var Hapi = require('hapi');
 var Good = require('good');
 var Joi = require('joi');
 var GitHubApi = require("github");
-var DBCtrl = require('./lib/dbController');
+var DBCtrl = require('./src/dbController');
 
 const DEBUG = process.env.DEBUG;
 
