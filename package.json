@@ -25,6 +25,7 @@
   "homepage": "https://github.com/G07cha/IssueBot#readme",
   "dependencies": {
     "foreman": "^1.4.1",
+    "github": "^0.2.4",
     "good": "^6.4.0",
     "good-console": "^5.2.0",
     "hapi": "^11.1.0",
