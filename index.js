@@ -23,7 +23,7 @@ github.authenticate({
 });
 
 var server = new Hapi.Server();
-server.connection({ port: process.env.PORT || 3000 });
+server.connection({ port: process.env.PORT || 8080 });
 
 server.route({
     method: 'POST',
