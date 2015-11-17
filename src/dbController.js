@@ -1,4 +1,3 @@
-'use strict'
 var mongo = require('mongoskin');
 var uuid = require('uuid');
 const DB = process.env.DBPORT || 'users';
