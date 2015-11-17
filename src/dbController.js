@@ -1,8 +1,7 @@
 var mongo = require('mongoskin');
 var uuid = require('uuid');
-const DB = process.env.DBPORT || 'users';
 
-var db = mongo.db("mongodb://localhost:27017/" + DB, {
+var db = mongo.db(process.env.MONGOLAB_URI, {
     native_parser: true
 });
 
