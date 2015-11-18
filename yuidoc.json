@@ -1,0 +1,11 @@
+{
+    "name": "IssueBot",
+    "description": "Worker for managing repository data and submit issues",
+    "url": "https://github.com/SubmitAnIssue/IssueBot",
+    "logo": "https://avatars1.githubusercontent.com/u/15874484?v=3&s=400",
+    "options": {
+        "paths": "./src",
+        "linkNatives": "true",
+        "outdir": "docs"
+    }
+}

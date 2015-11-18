@@ -1,0 +1,92 @@
+{
+    "project": {
+        "name": "IssueBot",
+        "description": "Worker for managing repository data and submit issues",
+        "url": "https://github.com/SubmitAnIssue/IssueBot",
+        "logo": "https://avatars1.githubusercontent.com/u/15874484?v=3&s=400"
+    },
+    "files": {
+        "src/dbController.js": {
+            "name": "src/dbController.js",
+            "modules": {},
+            "classes": {
+                "DBController": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "DBController": {
+            "name": "DBController",
+            "shortname": "DBController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/dbController.js",
+            "line": 16,
+            "description": "Controller for interacting with MongoDB"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "src/dbController.js",
+            "line": 22,
+            "is_constructor": 1,
+            "class": "DBController"
+        },
+        {
+            "file": "src/dbController.js",
+            "line": 27,
+            "description": "Find repository in :user/:repo format from database",
+            "itemtype": "method",
+            "name": "findRepo",
+            "params": [
+                {
+                    "name": "repoID",
+                    "description": "UUID that can be accrued after calling DBController.addRepo function",
+                    "type": "String"
+                },
+                {
+                    "name": "cb",
+                    "description": "Callback that will be called with DB data object where repository located in data.repository",
+                    "type": "Function"
+                }
+            ],
+            "class": "DBController"
+        },
+        {
+            "file": "src/dbController.js",
+            "line": 38,
+            "description": "Add repository to DB",
+            "itemtype": "method",
+            "name": "addRepo",
+            "params": [
+                {
+                    "name": "repository",
+                    "description": "Repository to add in format :user/:repo",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Repo's UUID that can be used in DBController.findRepo function",
+                "type": "String"
+            },
+            "class": "DBController"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/dbController.js:38"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/dbController.js:22"
+        }
+    ]
+}
