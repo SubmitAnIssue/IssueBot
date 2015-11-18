@@ -3,7 +3,7 @@ var uuid = require('uuid');
 
 require('dotenv').load();
 
-var db = mongo.db(process.env.MONGOLAB_URI, {
+var db = mongo.db(process.env.MONGOLAB_URI || "mongodb://localhost/test", {
     native_parser: true
 });
 
