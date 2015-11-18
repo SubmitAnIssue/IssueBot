@@ -60,9 +60,15 @@ server.route({
             
             github.issues.create(msg, function(err, data) {
                 if(err) {
+                    // TODO: Catch requests limit and save to queue
                     console.log(err);
-                    return reply(err.message, null)
-                                .code(404);
+                    const response = reply(err.message)
+                    
+                    if(err.message.indexOf('Not found') > -1) {
+                        response.code(404);
+                    } else if(err.message.indexOf('API rate limit exceed')) {
+                        response.code(403);
+                    }
                 } else {
                     return reply(data);
                 }
