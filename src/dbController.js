@@ -1,6 +1,8 @@
 var mongo = require('mongoskin');
 var uuid = require('uuid');
 
+require('dotenv').load();
+
 var db = mongo.db(process.env.MONGOLAB_URI, {
     native_parser: true
 });

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register",
     "docs": "yuidoc -c yuidoc.json .",
-    "start": "nf start"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/G07cha/IssueBot#readme",
   "dependencies": {
-    "foreman": "^1.4.1",
+    "dotenv": "^1.2.0",
     "github": "^0.2.4",
     "good": "^6.4.0",
     "good-console": "^5.2.0",
