@@ -1,26 +1,13 @@
 var Hapi = require('hapi');
 var Good = require('good');
 var Joi = require('joi');
-var GitHubApi = require("github");
 var DBCtrl = require('./src/dbController');
+var queue = require('queue');
+var Main = require('./src/main');
+
+q = queue();
 
 const DEBUG = process.env.DEBUG;
-
-var github = new GitHubApi({
-    version: "3.0.0",
-    debug: DEBUG,
-    protocol: "https",
-    timeout: 5000,
-    headers: {
-        "user-agent": "SubmitIssueBot"
-    }
-});
-
-github.authenticate({
-    type: "basic",
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD
-});
 
 var server = new Hapi.Server();
 server.connection({ port: process.env.PORT || 8080 });
@@ -58,21 +45,15 @@ server.route({
             msg.user = data.repository.split('/')[0];
             msg.repo = data.repository.split('/')[1];
             
-            github.issues.create(msg, function(err, data) {
-                if(err) {
-                    // TODO: Catch requests limit and save to queue
-                    console.log(err);
-                    const response = reply(err.message)
-                    
-                    if(err.message.indexOf('Not found') > -1) {
-                        response.code(404);
-                    } else if(err.message.indexOf('API rate limit exceed')) {
-                        response.code(403);
-                    }
-                } else {
-                    return reply(data);
-                }
-            });
+            // Checking is queue contains tasks(not started yet)
+            if(q.length) {
+                q.push(function() {
+                    Main.createIssue(msg, reply);
+                    cb();
+                });
+            } else {
+                Main.createIssue(msg, reply);
+            }
         });
     },
     config: {
