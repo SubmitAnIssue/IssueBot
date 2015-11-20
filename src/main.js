@@ -1,4 +1,5 @@
 var GitHubApi = require("github");
+var async = require('async');
 
 var github = new GitHubApi({
     version: "3.0.0",
@@ -19,27 +20,39 @@ var main = {
     createIssue: function(msg, reply) {
         github.issues.create(msg, function(err, data) {
             if(err) {
-                // TODO: Catch requests limit and save to queue
                 console.log(err);
-                const response = reply(err.message)
 
                 if(err.message.indexOf('Not found') > -1) {
-                    response.code(404);
-                } else if(err.message.indexOf('API rate limit exceed')) {
+                    if(reply) {
+                        reply(err.message)
+                            .code(404);
+                    }
+                } else if(err.message.indexOf('API rate limit exceed') > -1) {
                     github.misc.rateLimit({}, function(err, data) {
-                        var timeToReset = data.rate.reset * 1000;
+                        var timeToReset = data.resources.core.reset * 1000;
                         q.push(function(cb) {
-                            main.createIssue(msg, reply);
+                            main.createIssue(msg);
                             cb();
                         });
                         
                         // Start executing tasks when timer reset
-                        setTimeout(q.start(), timeToReset - new Date().getTime());
+                        async.parallel([
+                            function() {
+                                setTimeout(function() {
+                                    q.start();
+                                }, timeToReset - new Date().getTime())}
+                        ]);
                     });
-                    response.code(302);
+                    
+                    if(reply) {
+                        reply(err.message)
+                            .code(302);
+                    }
                 }
             } else {
-                return reply(data);
+                if(reply) {
+                    return reply(data);
+                }
             }
         });
     }

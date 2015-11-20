@@ -47,10 +47,11 @@ server.route({
             
             // Checking is queue contains tasks(not started yet)
             if(q.length) {
-                q.push(function() {
-                    Main.createIssue(msg, reply);
+                q.push(function(cb) {
+                    Main.createIssue(msg);
                     cb();
                 });
+                reply('Task added and will be completed soon');
             } else {
                 Main.createIssue(msg, reply);
             }
